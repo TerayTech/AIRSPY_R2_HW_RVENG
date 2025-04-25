@@ -1,9 +1,9 @@
 firmware
 ========
 
-AirSpy Firmware (called also airspy_fw)
+为了研究AirSpy SDR的运行方式，我们分析了他的Firmware (called also airspy_fw)代码仓库，并编写了以下文档。
 
-For more details how to build, flash ... see the Wiki: https://github.com/airspy/firmware/wiki
+For more details ... see the Wiki: https://github.com/airspy/firmware/wiki
 
 ## 中文文档 (Chinese Documentation)
 
