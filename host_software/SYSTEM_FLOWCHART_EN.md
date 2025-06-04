@@ -118,14 +118,14 @@ graph TD
 ```mermaid
 graph TD
     subgraph "DDC Input"
-        A[Real Sample Sequence] --> B[samples[0,1,2,3...]]
+        A[Real Sample Sequence] --> B[Sample Data Sequence]
     end
     
     subgraph "DC Offset Removal (remove_dc)"
         B --> C[Read Current DC Estimate]
-        C --> D[samples[i] -= avg]
-        D --> E[avg += SCALE * samples[i]]
-        E --> F[Update DC Estimate]
+        C --> D[Subtract DC Estimate]
+        D --> E[Update DC Estimate]
+        E --> F[Save DC Estimate]
         F --> G{All Samples Processed?}
         G -->|No| D
         G -->|Yes| H[DC Removal Complete]
@@ -133,10 +133,10 @@ graph TD
     
     subgraph "Frequency Translation (translate_fs_4)"
         H --> I[fs/4 Frequency Translation]
-        I --> J[samples[4k+0] *= -1]
-        J --> K[samples[4k+1] *= -hbc]
-        K --> L[samples[4k+2] *= 1]
-        L --> M[samples[4k+3] *= hbc]
+        I --> J[Sample 0 multiply by -1]
+        J --> K[Sample 1 multiply by -hbc]
+        K --> L[Sample 2 multiply by 1]
+        L --> M[Sample 3 multiply by hbc]
         M --> N[Generate I/Q Interleaved Sequence]
     end
     

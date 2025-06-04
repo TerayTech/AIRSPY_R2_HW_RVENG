@@ -118,14 +118,14 @@ graph TD
 ```mermaid
 graph TD
     subgraph "DDC输入"
-        A[实数采样序列] --> B[samples[0,1,2,3...]]
+        A[实数采样序列] --> B[采样数据序列]
     end
     
     subgraph "DC偏移移除 (remove_dc)"
         B --> C[读取当前DC估计值]
-        C --> D[samples[i] -= avg]
-        D --> E[avg += SCALE * samples[i]]
-        E --> F[更新DC估计值]
+        C --> D[减去DC估计值]
+        D --> E[更新DC估计值]
+        E --> F[保存DC估计值]
         F --> G{处理完所有样本?}
         G -->|否| D
         G -->|是| H[DC移除完成]
@@ -133,10 +133,10 @@ graph TD
     
     subgraph "频率平移 (translate_fs_4)"
         H --> I[fs/4频率平移]
-        I --> J[samples[4k+0] *= -1]
-        J --> K[samples[4k+1] *= -hbc]
-        K --> L[samples[4k+2] *= 1]
-        L --> M[samples[4k+3] *= hbc]
+        I --> J[第0样本乘以-1]
+        J --> K[第1样本乘以-hbc]
+        K --> L[第2样本乘以1]
+        L --> M[第3样本乘以hbc]
         M --> N[生成I/Q交替序列]
     end
     
